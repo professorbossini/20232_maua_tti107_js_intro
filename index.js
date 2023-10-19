@@ -1,24 +1,235 @@
-//métodos utilitários sobre vetores(listas)
-function mapear(lista, funcao){
-  //produza uma lista
-  //para cada elemento da lista recebida, use a função recebida para encontrar seu mapeamento
-  const aux = []
-  for (let i = 0; i < lista.length; i++){
-    // const resultante = funcao(lista[i])
-    // aux.push(resultante)
-    aux.push(funcao(lista[i]))
-  }
-  return aux
+//promises
+//1 + 2 + ... + n - 1 + n
+function calculoDemorado(numero){
+  //executar em tempo linear em n. O(n)
+  const p = new Promise(function(resolve, reject){
+    let res = 0
+    for (let i = 1; i <= numero; i++) res += i
+    resolve(res)
+  })
+  return p
 }
-const numeros = [1, 2, 3, 15]
-//chamar a mapear, produzindo uma lista de booleanos: true para quem for multiplo de 3, false para quem não for
-//use uma arrow function sem return e sem parênteses na lista de parâmetros
-//adaptar para que, ao inves de mostrar booleano, mostre um texto: "Eh multiplo de tres" ou "Não eh multiplo de tres", incluir o valor, usando interpolação
-//operador ternário: teste ? a : b
-console.log(mapear(numeros, n => n % 3 === 0 ? `${n} é múltiplo de três` : `${n} não é múltiplo de três`))
 
-//essa função mapear, já existe
-console.log(numeros.map(n => n % 3 === 0 ? `${n} é múltiplo de três` : `${n} não é múltiplo de três`))
+const promessa = calculoDemorado(10)
+promessa.then((valor) => {console.log(`Valor calculado: ${valor}`)})
+console.log("Outras coisas...")
+// const resultado = calculoDemorado(10)
+// console.log(resultado)
+// console.log("Outras coisas...")
+
+
+//inferno de callbacks
+//código hadouken
+// const fs = require ('fs')
+// const abrirArquivo = function(nomeArquivo){
+//   const exibirConteudo = function(erro, conteudo){
+//     if (erro){
+//       console.log(`Deu erro: ${erro}`)
+//     }
+//     else{
+//       console.log(`Conteúdo lido: ${conteudo.toString()}`)
+//       const dobro = Number(conteudo.toString()) * 2
+//       const finalizar = function(erro){
+//         console.log(`${erro ? "Deu erro ao salvar o dobro" : "Salvou o dobro com sucesso" }`)
+//       }
+//       fs.writeFile("dobro.txt", dobro.toString(), finalizar)
+//     }
+//   }
+//   fs.readFile(nomeArquivo, exibirConteudo)
+// }
+// abrirArquivo("arquivo.txt")
+//computação síncrona (bloqueante) e assíncrona(não bloqueante)
+// console.log("1")
+
+// setTimeout(() => {
+//   console.log("2")
+// }, 0)
+
+// const atualMaisTempo = new Date().getTime() + 17 * 60 * 1000
+// while (new Date().getTime() <= atualMaisTempo); //; é a operação NO-OP
+// console.log("3")
+
+//1
+//3
+//2
+
+
+
+
+// function demorada(tempo){
+//   console.log(`demorada: ${tempo}`)
+//   const atualMaisTempo = new Date().getTime() + tempo
+//   while(new Date().getTime() <= atualMaisTempo){
+
+//   }
+//   const d = 8 + 4
+//   return d
+// }
+// setTimeout(() => {
+//   demorada(2000)
+// }, 2000)
+// setTimeout(() => {
+//   demorada(1000)
+// }, 1000)
+
+// console.log("Fim do script principal")
+//1. Fim
+//2. 1000
+//3. 2000
+
+// setTimeout(() => {
+//   console.log("Dentro da setTimeout")
+// }, 0)
+
+// console.log("Depois da setTimeout")
+
+
+//exemplo não bloqueante
+// function demorada(){
+//   //extrair a data atual do sistema e deslocar de 2 segundos
+//   const dataAtualMais2Segundos = new Date().getTime() + 2000
+//   //ficar extraindo a data atual do sistema até que ela tenha passado da original
+//   while (new Date().getTime() <= dataAtualMais2Segundos){
+
+//   }
+//   const d = 8 + 4
+//   return d
+// }
+
+// const a = 2 + 3
+// const b = 5 + 9
+
+// setTimeout(() => {
+//   const d = demorada()
+//   console.log("d: " + d)
+// }, 500)
+
+// const e = 2 + a + b
+// console.log("e: " + e)
+
+//exemplo bloqueante
+// function demorada(){
+//   //extrair a data atual do sistema e deslocar de 2 segundos
+//   const dataAtualMais2Segundos = new Date().getTime() + 2000
+//   //ficar extraindo a data atual do sistema até que ela tenha passado da original
+//   while (new Date().getTime() <= dataAtualMais2Segundos){
+
+//   }
+//   const d = 8 + 4
+//   return d
+// }
+
+// const a = 2 + 3
+// const b = 5 + 9
+// const d = demorada()
+// const e = 2 + a + b
+
+
+// const a = 2 + 7
+// const b = 5
+// console.log(a + b)
+
+
+// console.log("Eu primeiro...")
+// console.log("Agora eu...")
+// console.log("Sempre vou ser a última :(")
+
+
+//uma calculadora realiza
+
+//soma de dois numeros (arrow function com return)
+//subtração de dois numeros (arrow function sem return)
+//raiz quadrada de um numero (function regular)
+// let calculadora = {
+//   soma: (a, b) => {return a + b},
+//   subtracao: (a, b) => a - b,
+//   raiz: function(a){return Math.sqrt(a)}
+// }
+// console.log(calculadora.soma(2, 3))
+// //mostre como somar sem usar o operador .
+// console.log(calculadora["soma"](2, 3))
+// console.log(calculadora["raiz"](2))
+// console.log(calculadora.subtracao(2, 3))
+
+
+//objetos javascript (ou "JSON" Javascript Object Notation)
+//uma concessionária tem cnpj e endereço (rua, numero e bairro). Ela possui 3 carros em estoque. Cada um deles tem marca, modelo e ano de fabricação.
+// let concessionaria = {
+//   cnpj: "xx.xxx.xxx/0001-xx",
+//   endereco: {
+//     logradouro: "Rua J",
+//     numero: 12,
+//     bairro: {
+//       nome: "Vila Mariana",
+//       distrito: "algum"
+//     }
+//   },
+//   estoque: [
+//     {marca: "Fiat", modelo: "Uno", ano: 2014},
+//     {marca: "Ford", modelo: "Focus", ano: 2015},
+//     {marca: "VW", modelo: "Fusca", ano: 2000}
+//   ]
+// }
+// console.log(concessionaria.estoque[0].modelo)
+// console.log(concessionaria["estoque"][2][ano])
+
+// //estrutura de repetição para mostrar todas as marcas e modelos
+// //for/of
+// for (let veiculo of concessionaria.estoque){
+//   console.log(`Modelo: ${veiculo.modelo}`)
+//   console.log(`Marca: ${veiculo.marca}`)
+// }
+
+
+
+
+//uma pessoa se chama Maria, tem 21 anos e mora na rua B, numero 121
+// let pessoa2 = {
+//   nome: "Maria",
+//   idade: 21,
+//   endereco: {
+//     logradouro: "Rua B",
+//     numero: 121
+//   }
+// }
+
+// console.log(pessoa2.endereco["logradouro"])
+// console.log(pessoa2.endereco.logradouro)
+
+// console.log(pessoa2["endereco"].numero)
+
+//uma pessoa se chama João e tem 17 anos
+// let pessoa = {
+//   nome: "João",
+//   idade: 17
+// }
+
+// //operadores de acesso a membro: . ou [""]
+// console.log("O nome da pessoa é " + pessoa.nome)
+// console.log("Ela tem " + pessoa["idade"])
+
+
+// //métodos utilitários sobre vetores(listas)
+// function mapear(lista, funcao){
+//   //produza uma lista
+//   //para cada elemento da lista recebida, use a função recebida para encontrar seu mapeamento
+//   const aux = []
+//   for (let i = 0; i < lista.length; i++){
+//     // const resultante = funcao(lista[i])
+//     // aux.push(resultante)
+//     aux.push(funcao(lista[i]))
+//   }
+//   return aux
+// }
+// const numeros = [1, 2, 3, 15]
+// //chamar a mapear, produzindo uma lista de booleanos: true para quem for multiplo de 3, false para quem não for
+// //use uma arrow function sem return e sem parênteses na lista de parâmetros
+// //adaptar para que, ao inves de mostrar booleano, mostre um texto: "Eh multiplo de tres" ou "Não eh multiplo de tres", incluir o valor, usando interpolação
+// //operador ternário: teste ? a : b
+// console.log(mapear(numeros, n => n % 3 === 0 ? `${n} é múltiplo de três` : `${n} não é múltiplo de três`))
+
+// //essa função mapear, já existe
+// console.log(numeros.map(n => n % 3 === 0 ? `${n} é múltiplo de três` : `${n} não é múltiplo de três`))
 
 //dada a lista [1, 2, 3], produzir [1, 4, 9]
 // const numeros = [1, 2, 3]
